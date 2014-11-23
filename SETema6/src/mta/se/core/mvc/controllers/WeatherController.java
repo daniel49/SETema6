@@ -6,7 +6,7 @@ package mta.se.core.mvc.controllers;
 
 import mta.se.core.mvc.interfaces.IController;
 import mta.se.core.mvc.interfaces.IView;
-import mta.se.core.mvc.model.WeatherModel;
+import mta.se.core.mvc.models.WeatherModel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

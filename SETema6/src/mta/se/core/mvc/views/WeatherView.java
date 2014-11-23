@@ -6,7 +6,7 @@ package mta.se.core.mvc.views;
 import mta.se.core.mvc.interfaces.IController;
 import mta.se.core.mvc.interfaces.IModelListener;
 import mta.se.core.mvc.interfaces.IView;
-import mta.se.core.mvc.model.WeatherModel;
+import mta.se.core.mvc.models.WeatherModel;
 //import mta.se.core.mvc.utils.CalculateAction;
 
 import javax.swing.*;
@@ -63,7 +63,7 @@ public class WeatherView extends JFrame implements IModelListener, IView {
     /**
      * Sets the view's reference to the model - Only get operations allowed
      *
-     * @param model The calc model
+     * @param model The weather model
      */
     public void addModel(WeatherModel model) {
         mModel = model;

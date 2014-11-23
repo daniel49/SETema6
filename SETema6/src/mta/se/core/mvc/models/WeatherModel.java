@@ -1,4 +1,4 @@
-package mta.se.core.mvc.model;
+package mta.se.core.mvc.models;
 
 
 import mta.se.core.mvc.interfaces.IModelListener;

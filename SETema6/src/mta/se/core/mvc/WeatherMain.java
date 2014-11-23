@@ -1,7 +1,7 @@
 package mta.se.core.mvc;
 
 import mta.se.core.mvc.controllers.WeatherController;
-import mta.se.core.mvc.model.WeatherModel;
+import mta.se.core.mvc.models.WeatherModel;
 import mta.se.core.mvc.views.WeatherView;
 
 /**
