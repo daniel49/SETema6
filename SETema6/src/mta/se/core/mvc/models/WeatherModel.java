@@ -9,12 +9,12 @@ import java.util.List;
 
 public class WeatherModel {
     // Constants
-    public static final String INITIAL_VALUE = "0";
+    public static final int INITIAL_VALUE = 0;
 
     // Member variables defining the weather report
-    private BigInteger mTemperature;
-    private BigInteger mWindSpeed;
-    private BigInteger mHumidity;
+    private float mTemperature;
+    private float mWindSpeed;
+    private int mHumidity;
     
     private List<IModelListener> mListeners;
 
@@ -22,9 +22,9 @@ public class WeatherModel {
      * Constructor
      */
     public WeatherModel() {
-    	mTemperature = new BigInteger(INITIAL_VALUE);
-    	mWindSpeed = new BigInteger(INITIAL_VALUE);
-    	mHumidity = new BigInteger(INITIAL_VALUE);
+    	mTemperature = INITIAL_VALUE;
+    	mWindSpeed = INITIAL_VALUE;
+    	mHumidity = INITIAL_VALUE;
     }
 
     /**
@@ -32,9 +32,9 @@ public class WeatherModel {
      *
      * @param value New value for the temperature.
      */
-    public void setTemperatureValue(String value) {
+    public void setTemperatureValue(float value) {
 
-    		mTemperature = new BigInteger(value);
+    		mTemperature = value;
     		notifyListeners();
     }
     /**
@@ -42,9 +42,9 @@ public class WeatherModel {
      *
      * @param value New value for the wind speed.
      */
-    public void setWindSpeedValue(String value) {
+    public void setWindSpeedValue(float value) {
 
-			mWindSpeed = new BigInteger(value);
+			mWindSpeed = value;
 			notifyListeners();
     }
     /**
@@ -52,9 +52,9 @@ public class WeatherModel {
      *
      * @param value New value for the humidity.
      */
-    public void setHumidityValue(String value) {
+    public void setHumidityValue(int value) {
 
-			mHumidity = new BigInteger(value);
+			mHumidity = value;
 			notifyListeners();
     }
 
@@ -63,21 +63,21 @@ public class WeatherModel {
      */
     public String getTemperatureValue() {
     	
-        	return mTemperature.toString();
+        	return Float.toString(mTemperature);
     }
     /**
      * Return wind speed value.
      */
     public String getWindSpeedValue() {
     	
-    	return mWindSpeed.toString();
+    	return Float.toString(mWindSpeed);
     }
     /**
      * Return humidity value.
      */
     public String getHumidityValue() {
     	
-    	return mHumidity.toString();
+    	return Integer.toString(mHumidity);
     }
 
     /**

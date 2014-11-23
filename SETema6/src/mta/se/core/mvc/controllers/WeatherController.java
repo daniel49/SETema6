@@ -8,12 +8,21 @@ import mta.se.core.mvc.interfaces.IController;
 import mta.se.core.mvc.interfaces.IView;
 import mta.se.core.mvc.models.WeatherModel;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import mta.se.core.mvc.webservice.ParseJSONObject;
+import mta.se.core.mvc.webservice.WeatherServiceHTTPRequest;
 
 public class WeatherController implements IController {
     // The Controller needs to interact with both the Model and View.
@@ -88,17 +97,36 @@ public class WeatherController implements IController {
      */
     private void makeOperation() {
         if (mModel != null) {
-            BigInteger currentValue = new BigInteger("0");
-            // Update the model
-            //mModel.setValue(currentValue.multiply(new BigInteger(operand)).toString());
-            currentValue = BigInteger.valueOf(this.randInt(-45, 45));
-            mModel.setTemperatureValue(currentValue.toString());
-            
-            currentValue = BigInteger.valueOf(this.randInt(0, 120));
-            mModel.setWindSpeedValue(currentValue.toString());
-            
-            currentValue = BigInteger.valueOf(this.randInt(0, 100));
-            mModel.setHumidityValue(currentValue.toString());
+        	// Weather report for Bucharest
+            String weatherData = WeatherServiceHTTPRequest.getWeatherData("lat=44&lon=26");
+            try {
+            	// Create a new JSON object based on the data received from the service
+            	JSONObject jsonObject = new JSONObject(weatherData);
+            	// Get main object that contains temp,humidity,pressure,etc from the json object
+            	JSONObject mainJsonObj = ParseJSONObject.getObject("main", jsonObject);
+				float temperature=ParseJSONObject.getFloat("temp", mainJsonObj);
+				// Transform from Kelvin to Celsius
+				temperature = (float) (temperature - 273.15);
+				BigDecimal decValue = new BigDecimal(temperature);
+				// Trunc de float value to only 2 decimals
+				decValue = decValue.setScale(2,RoundingMode.HALF_EVEN);
+				mModel.setTemperatureValue(decValue.floatValue());
+				
+				int humidity=ParseJSONObject.getInt("humidity", mainJsonObj);
+				mModel.setHumidityValue(humidity);
+				
+				JSONObject windJsonObj = ParseJSONObject.getObject("wind", jsonObject);
+				float windSpeed = ParseJSONObject.getFloat("speed", windJsonObj);
+				// Transform from m/s to km/h
+				windSpeed =(float) (windSpeed * 3.6);
+				decValue = new BigDecimal(windSpeed);
+				decValue = decValue.setScale(2,RoundingMode.HALF_EVEN);
+				mModel.setWindSpeedValue(decValue.floatValue());
+				
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
     }
     

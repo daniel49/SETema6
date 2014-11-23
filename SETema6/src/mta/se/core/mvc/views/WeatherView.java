@@ -17,9 +17,9 @@ public class WeatherView extends JFrame implements IModelListener, IView {
 
     // View Components
 
-    private JTextField mTemperature = new JTextField(4);
-    private JTextField mWindSpeed = new JTextField(4);
-    private JTextField mHumidity = new JTextField(4);
+    private JTextField mTemperature = new JTextField(7);
+    private JTextField mWindSpeed = new JTextField(7);
+    private JTextField mHumidity = new JTextField(7);
     private JButton mGenerateBtn = new JButton("Generate");
 
     private IController mWeatherController;
